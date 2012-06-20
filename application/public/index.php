@@ -3,7 +3,6 @@ ini_set('memory_limit','3000M');                    // 3GB
 ini_set('session.gc_maxlifetime',7200);             // 120 minutes
 date_default_timezone_set("America/Los_Angeles");   // PHP can be so dumb
 
-
 // Configuration vars
 define('DEFAULT_ENVIRONMENT', 'production');
 define('CONFIG_PATH', '../config/config.ini');
@@ -21,21 +20,19 @@ if(ENVIRONMENT == 'development') {
 }
 
 // Init config class
-include_once('../../framework/Config.class.php');
+include_once('../../framework/php/Config.class.php');
 $objConfig = Config::getHandle();
 
-
 // Auto loading
-include_once('../../framework/Autoload.class.php');
+include_once('../../framework/php/Autoload.class.php');
 function __autoload($strClass) {
     Autoload::load($strClass);
 }
 
-
 // Load external libraries here
+// There isn't really a way to load these automagically - no standard naming
 include_once($objConfig->EXT_PATH . "/Json.ext.php");
 include_once($objConfig->EXT_PATH . "/OAuth.ext.php");
-
 
 // All systems GO GO GO!
 FrontController::run();
