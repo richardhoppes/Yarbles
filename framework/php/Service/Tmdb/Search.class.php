@@ -6,10 +6,22 @@ class Service_Tmdb_Search extends Service_Tmdb {
     const SEARCH_PERSON_METHOD = 'search/person';
     const SEARCH_COMPANY_METHOD = 'search/company';
 
-    public function searchMovie($strName, $intPage = null) {
-        $strUrl = $this->buildGetURL(self::SEARCH_MOVIE_METHOD, $strName, $intPage, true);
+    public function searchMovie($strQuery, $intPage = null) {
+        return $this->search(self::SEARCH_MOVIE_METHOD, $strQuery, $intPage, true);
+    }
+
+    public function searchPerson($strQuery, $intPage = null) {
+        return $this->search(self::SEARCH_PERSON_METHOD, $strQuery, $intPage, true);
+    }
+
+    public function searchCompany($strQuery, $intPage = null) {
+        return $this->search(self::SEARCH_COMPANY_METHOD, $strQuery, $intPage);
+    }
+
+    protected function search($strMethod, $strQuery, $intPage = null, $boolAdult = false) {
+        $strUrl = $this->buildGetURL($strMethod, $strQuery, $intPage, $boolAdult);
         $strResult = $this->objHttpClient->getResource($strUrl);
-        return $this->parseResponse($strResult, self::SEARCH_MOVIE_METHOD);
+        return $this->parseResponse($strResult, $strMethod);
     }
 
     protected function buildGetURL($strMethod, $strQuery, $intPage = null, $boolIncludeAdult = false) {
@@ -44,10 +56,10 @@ class Service_Tmdb_Search extends Service_Tmdb {
                         $arrResults[] = Service_Tmdb_Utility_TransformSearchResponse::transformSearchMovieResponse($objResponse);
                         break;
                     case self::SEARCH_PERSON_METHOD:
-                        throw new Exception("Search method not yet implemented.");
+                        $arrResults[] = Service_Tmdb_Utility_TransformSearchResponse::transformSearchPersonResponse($objResponse);
                         break;
                     case self::SEARCH_COMPANY_METHOD:
-                        throw new Exception("Search method not yet implemented.");
+                        $arrResults[] = Service_Tmdb_Utility_TransformSearchResponse::transformSearchCompanyResponse($objResponse);
                         break;
                 }
             }

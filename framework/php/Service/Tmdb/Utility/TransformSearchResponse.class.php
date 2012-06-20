@@ -19,5 +19,30 @@ class Service_Tmdb_Utility_TransformSearchResponse {
 
         return $objSearchMovie;
     }
+
+    public static function transformSearchPersonResponse($objResponse) {
+        $objSearchPerson = new Service_Tmdb_Entity_SearchPerson();
+
+        if($objResponse != null && is_object($objResponse)) {
+            $objSearchPerson->setAdult($objResponse->adult);
+            $objSearchPerson->setProfilePath($objResponse->profile_path);
+            $objSearchPerson->setId($objResponse->id);
+            $objSearchPerson->setName($objResponse->name);
+        }
+
+        return $objSearchPerson;
+    }
+
+    public static function transformSearchCompanyResponse($objResponse) {
+        $objSearchCompany = new Service_Tmdb_Entity_SearchCompany();
+
+        if($objResponse != null && is_object($objResponse)) {
+            $objSearchCompany->setLogoPath($objResponse->logo_path);
+            $objSearchCompany->setId($objResponse->id);
+            $objSearchCompany->setName($objResponse->name);
+        }
+
+        return $objSearchCompany;
+    }
 }
 ?>

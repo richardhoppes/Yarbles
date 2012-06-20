@@ -43,5 +43,50 @@ class TransformSearchResponseTest extends UnitTestCase {
         $this->assertEqual($objSearchMovie->getVoteCount(), 0);
     }
 
+    function testTransformSearchPersonResult() {
+        $objResponse = new stdClass();
+        $objResponse->adult = true;
+        $objResponse->profile_path = "/test_person_path.jpg";
+        $objResponse->id = 3000;
+        $objResponse->name = "Person Name";
+
+        $objSearchPerson = Service_Tmdb_Utility_TransformSearchResponse::transformSearchPersonResponse($objResponse);
+
+        $this->assertEqual($objSearchPerson->getAdult(), $objResponse->adult ? 1 : 0);
+        $this->assertEqual($objSearchPerson->getProfilePath(), $objResponse->profile_path);
+        $this->assertEqual($objSearchPerson->getId(), $objResponse->id);
+        $this->assertEqual($objSearchPerson->getName(), $objResponse->name);
+    }
+
+    function testTransformSearchPersonResult_NullResult() {
+        $objSearchPerson = Service_Tmdb_Utility_TransformSearchResponse::transformSearchPersonResponse(null);
+
+        $this->assertEqual($objSearchPerson->getAdult(), false);
+        $this->assertEqual($objSearchPerson->getProfilePath(), null);
+        $this->assertEqual($objSearchPerson->getId(), 0);
+        $this->assertEqual($objSearchPerson->getName(), null);
+    }
+
+    function testTransformSearchCompanyResult() {
+        $objResponse = new stdClass();
+        $objResponse->logo_path = "/test_logo_path.jpg";
+        $objResponse->id = 200;
+        $objResponse->name = "Company Name";
+
+        $objSearchCompany = Service_Tmdb_Utility_TransformSearchResponse::transformSearchCompanyResponse($objResponse);
+
+        $this->assertEqual($objSearchCompany->getLogoPath(), $objResponse->logo_path);
+        $this->assertEqual($objSearchCompany->getId(), $objResponse->id);
+        $this->assertEqual($objSearchCompany->getName(), $objResponse->name);
+    }
+
+    function testTransformSearchCompanyResult_NullResult() {
+        $objSearchCompany = Service_Tmdb_Utility_TransformSearchResponse::transformSearchCompanyResponse(null);
+
+        $this->assertEqual($objSearchCompany->getLogoPath(), null);
+        $this->assertEqual($objSearchCompany->getId(), 0);
+        $this->assertEqual($objSearchCompany->getName(), null);
+    }
+
 }
 ?>
