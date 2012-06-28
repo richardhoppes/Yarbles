@@ -2,21 +2,21 @@
 
 class Command
 {
-    protected $command = array();
+	protected $command = array();
 
-    private function getProperty($strName) {
+	private function getProperty($strName) {
 
-        $strProperty = $strName;
-        if(substr($strProperty, 0, 3) == "get") {
-            $strProperty = substr($strProperty, 3, strlen($strProperty));
-            $strProperty = lcfirst($strProperty);
-        }
+		$strProperty = $strName;
+		if(substr($strProperty, 0, 3) == "get") {
+			$strProperty = substr($strProperty, 3, strlen($strProperty));
+			$strProperty = lcfirst($strProperty);
+		}
 
-        return $this->command[$strProperty];
-    }
+		return $this->command[$strProperty];
+	}
 
-    public function __call($strName, $arrArgs = array()) {
-        return $this->getProperty($strName);
-    }
+	public function __call($strName, $arrArgs = array()) {
+		return $this->getProperty($strName);
+	}
 
 }

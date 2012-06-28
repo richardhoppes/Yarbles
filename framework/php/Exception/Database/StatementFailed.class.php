@@ -1,8 +1,5 @@
 <?php
-/**
- * Database update exception
- * @author Richard Hoppes <rhoppes@gmail.com>
- */
+
 class Exception_Database_StatementFailed extends Exception_Database {
 	protected $strQuery;
 	protected $strError;
@@ -15,27 +12,16 @@ class Exception_Database_StatementFailed extends Exception_Database {
 		parent::__construct("Statement Failed");
 	}
 
-	public function getStrQueryType() {
+	public function getQueryType() {
 		return $this->strQueryType;
 	}
 
-	public function setStrQueryType($strQueryType) {
-		$this->strQueryType = $strQueryType;
-	}
-
-	public function getStrError() {
+	public function getError() {
 		return $this->strError;
 	}
 
-	public function setStrError($strError) {
-		$this->strError = $strError;
-	}
-
-	public function getStrQuery() {
+	public function getQuery() {
 		return $this->strQuery;
 	}
 
-	public function setStrQuery($strQuery) {
-		$this->strQuery = $strQuery;
-	}
 }

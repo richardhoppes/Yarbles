@@ -1,21 +1,14 @@
 <?php
-/**
- * Unknown session key exception
- * @author Richard Hoppes <rhoppes@gmail.com>
- */
-class Exception_Session_UnknownKey extends Exception_Session {
-	protected $strInfo;
 
-	public function __construct($strInfo = null) {
-		$strInfo ? $this->strInfo = $strInfo : null;
+class Exception_Session_UnknownKey extends Exception_Session {
+	protected $strKey;
+
+	public function __construct($strKey = null) {
+		$strKey ? $this->strKey = $strKey : null;
 		parent::__construct('Unknown Session Key');
 	}
 
-	public function getStrInfo() {
-		return $this->strInfo;
-	}
-
-	public function setStrInfo($strInfo) {
-		$this->strInfo = $strInfo;
+	public function getKey() {
+		return $this->strKey;
 	}
 }

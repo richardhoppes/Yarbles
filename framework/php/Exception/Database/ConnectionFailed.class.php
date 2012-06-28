@@ -1,8 +1,5 @@
 <?php
-/**
- * Database connection exception
- * @author Richard Hoppes <rhoppes@gmail.com>
- */
+
 class Exception_Database_ConnectionFailed extends Exception_Database {
 	protected $strHost;
 
@@ -11,11 +8,7 @@ class Exception_Database_ConnectionFailed extends Exception_Database {
 		parent::__construct("Database connection failed");
 	}
 
-	public function getStrHost() {
+	public function getHost() {
 		return $this->strHost;
-	}
-
-	public function setStrHost($strHost) {
-		$this->strHost = $strHost;
 	}
 }

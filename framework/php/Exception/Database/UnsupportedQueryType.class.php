@@ -1,8 +1,5 @@
 <?php
-/**
- * Database update exception
- * @author Richard Hoppes <rhoppes@gmail.com>
- */
+
 class Exception_Database_StatementFailed extends Exception_Database {
 	protected $strQueryType;
 
@@ -11,11 +8,8 @@ class Exception_Database_StatementFailed extends Exception_Database {
 		parent::__construct("Unsupported Query Type ({$strQueryType})");
 	}
 
-	public function getStrQueryType() {
+	public function getQueryType() {
 		return $this->strQueryType;
 	}
 
-	public function setStrQueryType($strQueryType) {
-		$this->strQueryType = $strQueryType;
-	}
 }

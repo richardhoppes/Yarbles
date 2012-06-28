@@ -12,7 +12,7 @@ class Helper_Path {
 	 * @return string
 	 */
 	public static function createJsPath($strFileLocation, $boolForceCacheRefresh) {
-        $objConfig = Config::getHandle();
+		$objConfig = Config::getHandle();
 		return $objConfig->JS_PATH . "/" . $strFileLocation . ($boolForceCacheRefresh ? "?".Helper_Version::getVersionHash() : "");
 	}
 
@@ -24,7 +24,7 @@ class Helper_Path {
 	 * @return string
 	 */
 	public static function createCssPath($strFileLocation, $boolForceCacheRefresh) {
-        $objConfig = Config::getHandle();
+		$objConfig = Config::getHandle();
 		return $objConfig->CSS_PATH . "/" . $strFileLocation . ($boolForceCacheRefresh ? "?".Helper_Version::getVersionHash() : "");
 	}
 
@@ -35,7 +35,7 @@ class Helper_Path {
 	 * @return string
 	 */
 	public static function createImgPath($strFileLocation = "") {
-        $objConfig = Config::getHandle();
+		$objConfig = Config::getHandle();
 		return $objConfig->IMG_PATH . "/" . $strFileLocation;
 	}
 
@@ -46,7 +46,7 @@ class Helper_Path {
 	 * @return string
 	 */
 	public static function createSwfPath($strFileLocation) {
-        $objConfig = Config::getHandle();
+		$objConfig = Config::getHandle();
 		return $objConfig->SWF_PATH . "/" . $strFileLocation;
 	}
 }

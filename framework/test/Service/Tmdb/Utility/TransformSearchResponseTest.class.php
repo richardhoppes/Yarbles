@@ -14,7 +14,7 @@ class TransformSearchResponseTest extends UnitTestCase {
         $objResponse->vote_average = 9;
         $objResponse->vote_count = 10;
 
-        $objSearchMovie = Service_Tmdb_Utility_TransformSearchResponse::transformSearchMovieResponse($objResponse);
+        $objSearchMovie = Api_Tmdb_Utility_TransformSearchResponse::transformSearchMovieResponse($objResponse);
 
         $this->assertEqual($objSearchMovie->getAdult(), $objResponse->adult ? 1 : 0);
         $this->assertEqual($objSearchMovie->getBackdropPath(), $objResponse->backdrop_path);
@@ -29,7 +29,7 @@ class TransformSearchResponseTest extends UnitTestCase {
     }
 
     function testTransformSearchMovieResult_NullResult() {
-        $objSearchMovie = Service_Tmdb_Utility_TransformSearchResponse::transformSearchMovieResponse(null);
+        $objSearchMovie = Api_Tmdb_Utility_TransformSearchResponse::transformSearchMovieResponse(null);
 
         $this->assertEqual($objSearchMovie->getAdult(), false);
         $this->assertEqual($objSearchMovie->getBackdropPath(), null);
@@ -50,7 +50,7 @@ class TransformSearchResponseTest extends UnitTestCase {
         $objResponse->id = 3000;
         $objResponse->name = "Person Name";
 
-        $objSearchPerson = Service_Tmdb_Utility_TransformSearchResponse::transformSearchPersonResponse($objResponse);
+        $objSearchPerson = Api_Tmdb_Utility_TransformSearchResponse::transformSearchPersonResponse($objResponse);
 
         $this->assertEqual($objSearchPerson->getAdult(), $objResponse->adult ? 1 : 0);
         $this->assertEqual($objSearchPerson->getProfilePath(), $objResponse->profile_path);
@@ -59,7 +59,7 @@ class TransformSearchResponseTest extends UnitTestCase {
     }
 
     function testTransformSearchPersonResult_NullResult() {
-        $objSearchPerson = Service_Tmdb_Utility_TransformSearchResponse::transformSearchPersonResponse(null);
+        $objSearchPerson = Api_Tmdb_Utility_TransformSearchResponse::transformSearchPersonResponse(null);
 
         $this->assertEqual($objSearchPerson->getAdult(), false);
         $this->assertEqual($objSearchPerson->getProfilePath(), null);
@@ -73,7 +73,7 @@ class TransformSearchResponseTest extends UnitTestCase {
         $objResponse->id = 200;
         $objResponse->name = "Company Name";
 
-        $objSearchCompany = Service_Tmdb_Utility_TransformSearchResponse::transformSearchCompanyResponse($objResponse);
+        $objSearchCompany = Api_Tmdb_Utility_TransformSearchResponse::transformSearchCompanyResponse($objResponse);
 
         $this->assertEqual($objSearchCompany->getLogoPath(), $objResponse->logo_path);
         $this->assertEqual($objSearchCompany->getId(), $objResponse->id);
@@ -81,7 +81,7 @@ class TransformSearchResponseTest extends UnitTestCase {
     }
 
     function testTransformSearchCompanyResult_NullResult() {
-        $objSearchCompany = Service_Tmdb_Utility_TransformSearchResponse::transformSearchCompanyResponse(null);
+        $objSearchCompany = Api_Tmdb_Utility_TransformSearchResponse::transformSearchCompanyResponse(null);
 
         $this->assertEqual($objSearchCompany->getLogoPath(), null);
         $this->assertEqual($objSearchCompany->getId(), 0);

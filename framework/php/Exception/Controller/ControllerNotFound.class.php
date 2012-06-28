@@ -1,21 +1,15 @@
 <?php
-/**
- * Controller not found exception
- * @author Richard Hoppes <rhoppes@gmail.com>
- */
-class Exception_Controller_ControllerNotFound extends Exception_Controller {
-	protected $strInfo;
 
-	public function __construct($strInfo = null) {
-		$strInfo ? $this->strInfo = $strInfo : null;
+class Exception_Controller_ControllerNotFound extends Exception_Controller {
+	protected $strControllerName;
+
+	public function __construct($strControllerName) {
+		$this->strControllerName = $strControllerName;
 		parent::__construct('Controller Not Found');
 	}
 
-	public function getStrInfo() {
-		return $this->strInfo;
+	public function getControllerName() {
+		return $this->strControllerName;
 	}
 
-	public function setStrInfo($strInfo) {
-		$this->strInfo = $strInfo;
-	}
 }

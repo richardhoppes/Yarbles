@@ -1,9 +1,5 @@
 <?php
-/**
- * Config class
- * @throws Exception
- * @author Richard Hoppes <rhoppes@gmail.com>
- */
+
 class Config {
 	
 	private static $objConfig;
@@ -20,11 +16,6 @@ class Config {
 		$this->arrConfig = parse_ini_file($this->strConfigPath, true);
 	}
 	
-	/**
-	 * Make sure returned instance is a singleton
-	 * @static
-	 * @return object
-	 */
 	public static function getHandle() {
 		if(!self::$objConfig) {
 			self::$objConfig = new self();

@@ -4,30 +4,24 @@ class Library_ApplicationModel extends Model {
 	protected $boolStateful;
 	protected $strStateKey;
 	
-	public function __construct($strTable, $mxdId = null, $strIdField = 'intId', $boolStateful = false, $strStateKey = null) 
-	{
+	public function __construct($strTable, $mxdId = null, $strIdField = 'id', $boolStateful = false, $strStateKey = null) {
 		$this->boolStateful = $boolStateful;
 		$this->strStateKey = $strStateKey;
 		
 		parent::__construct($strTable, $mxdId, $strIdField);
 	}
 	
-	public function load($strQuery = null) 
-	{
+	public function load($strQuery = null) {
 		parent::load($strQuery);
-		
 		$this->updateApplicationState();
 	}
 	
-	public function save()
-	{
+	public function save() {
 		parent::save();
-		
 		$this->updateApplicationState();
 	}
 	
-	public function isStateful() 
-	{
+	public function isStateful() {
 		if($this->boolStateful && $this->strStateKey)
 			return true;
 		else
@@ -35,10 +29,8 @@ class Library_ApplicationModel extends Model {
 	}
 
 	
-	public function updateApplicationState() 
-	{
-		if($this->isStateful())
-		{ 
+	public function updateApplicationState() {
+		if($this->isStateful()) {
 			$strFunction = str_replace("Model_", "", $this->strStateKey);
 			$strFunction = str_replace("_", "", $strFunction);
 			$strFunction = "set".$strFunction;
@@ -49,8 +41,7 @@ class Library_ApplicationModel extends Model {
 	}
 	
 	// Overrides parent function so the list of child class variables doesn't include variables from this class
-	protected function getChildClassVariables() 
-	{
+	protected function getChildClassVariables() {
 		$objReflection = new ReflectionClass($this);
 		$arrVars = array_keys($objReflection->getdefaultProperties());
 		
