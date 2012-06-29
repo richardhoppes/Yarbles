@@ -32,5 +32,4 @@ abstract class Controller {
 		header("Location {$strUrl}");
 	}
 
-	abstract public function main();
 }
