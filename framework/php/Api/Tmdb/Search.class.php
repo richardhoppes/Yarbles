@@ -20,7 +20,7 @@ class Api_Tmdb_Search extends Api_Tmdb {
 
 	protected function search($strMethod, $strQuery, $intPage = null, $boolAdult = false) {
 		$strUrl = $this->buildGetURL($strMethod, $strQuery, $intPage, $boolAdult);
-		$strResult = $this->objHttpClient->getResource($strUrl);
+		$strResult = $this->objHttpClient->get($strUrl);
 		return $this->parseResponse($strResult, $strMethod);
 	}
 

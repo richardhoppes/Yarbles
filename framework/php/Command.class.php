@@ -1,6 +1,9 @@
 <?php
-
-class Command
+/**
+ * Abstract command
+ * @author Richard Hoppes
+ */
+abstract class Command
 {
 	protected $command = array();
 

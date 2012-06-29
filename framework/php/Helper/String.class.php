@@ -1,4 +1,8 @@
-<?php 
+<?php
+/**
+ * String helper
+ * @author Richard Hoppes
+ */
 class Helper_String {
 
 	public static function truncate($strValue, $intMaxLength, $strAppendChars = "...") {

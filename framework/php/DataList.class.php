@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * Abstract datalist - extend for specific implementations (e.g. table, lists, etc...)
+ * @author Richard Hoppes
+ */
 abstract class DataList {
 
 	protected $arrData = array();

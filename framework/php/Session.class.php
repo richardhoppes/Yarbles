@@ -1,5 +1,5 @@
 <?php
-
+/*
 class Session {
 
 	const SESSION_REGISTER_NAME = "session_main";
@@ -48,3 +48,4 @@ class Session {
 	}
 
 }
+*/

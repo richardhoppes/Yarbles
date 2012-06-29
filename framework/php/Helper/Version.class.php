@@ -1,7 +1,7 @@
 <?php 
 /**
  * Path helper class
- * @author Richard Hoppes <rhoppes@gmail.com>
+ * @author Richard Hoppes
  */
 class Helper_Version {
 	/**

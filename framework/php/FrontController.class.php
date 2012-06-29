@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * Front controller - this is what makes things tick
+ * @author Richard Hoppes
+ */
 class FrontController {
 
 	private static function createControllerName($strValue) {
@@ -125,7 +128,7 @@ class FrontController {
 
 		} catch (Exception $e) {
 			$objController = new Controller_Error();
-			$objController->main($e);
+			$objController->general($e);
 		}
 	}
 }

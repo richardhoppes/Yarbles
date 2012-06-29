@@ -45,7 +45,7 @@ class Controller_Error extends Controller {
 		$this->loadView('Error_405', $arrParams);
 	}
 
-	public function main($e) {
+	public function general($e) {
 		$arrParams = array();
 		$arrParams['code'] = null;
 		$arrParams['title'] = 'Oops! Something is broken!';

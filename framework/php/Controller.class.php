@@ -1,6 +1,9 @@
 <?php
-
-class Controller {
+/**
+ * Abstract controller class
+ * @author Richard Hoppes
+ */
+abstract class Controller {
 	public function __construct() {
 		// Do something
 	}
@@ -28,4 +31,6 @@ class Controller {
 	public function redirect($strUrl) {
 		header("Location {$strUrl}");
 	}
+
+	abstract public function main();
 }

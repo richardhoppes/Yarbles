@@ -1,5 +1,8 @@
 <?
-
+/**
+ * Class to handle HTTP requests
+ * @author Richard Hoppes
+ */
 class Request {
 
 	const REQUEST_METHOD_GET = "GET";

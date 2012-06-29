@@ -1,19 +1,22 @@
 <?php
-
+/**
+ * Abstract model class
+ * @author Richard Hoppes
+ */
 abstract class Model {
 	protected $strTable;
 	protected $mxdId;
 	protected $strIdField;
+	protected $objDatabase;
 
-	public function __construct($strTable, $mxdId = null, $strIdField = 'intId') {
+	public function __construct(Adapter_Database_Interface $objDatabase, $strTable, $mxdId = null, $strIdField = 'intId') {
+		$this->objDatabase = $objDatabase;
 		$this->strTable = $strTable;
 		$this->mxdId = $mxdId;
 		$this->strIdField = $strIdField;
 	}
 
 	public function load($strQuery = null, $arrVariables = array()) {
-		$objDatabase = Database_MySQL::getHandle();
-
 		// If no query was supplied, load record by id
 		if(!$strQuery) {
 			$arrVariables['id'] = $this->mxdId;
@@ -25,7 +28,7 @@ abstract class Model {
 		}
 
 		// Execute query
-		$arrResult = $objDatabase->query($strQuery, $arrVariables);
+		$arrResult = $this->objDatabase->query($strQuery, $arrVariables);
 
 		// Set field values, or reset if no record was found
 		if(isset($arrResult[0]) && is_array($arrResult[0]) && sizeof($arrResult) > 0) {
@@ -41,8 +44,6 @@ abstract class Model {
 	}
 
 	public function save() {
-		$objDatabase = Database_MySQL::getHandle();
-
 		// Perform update
 		if($this->mxdId) {
 			$strSet = "";
@@ -51,7 +52,7 @@ abstract class Model {
 				if(is_null($this->$strVariableName))
 					$strSet .= " {$strVariableName} = NULL ";
 				else
-					$strSet .= " {$strVariableName} = '".$objDatabase->prepareValue($this->$strVariableName)."' ";
+					$strSet .= " {$strVariableName} = '".$this->objDatabase->prepareValue($this->$strVariableName)."' ";
 			}
 
 			$strQuery = "
@@ -60,7 +61,7 @@ abstract class Model {
 				WHERE {$this->strIdField} = '{$this->mxdId}'
 			";
 
-			$objDatabase->query($strQuery, array(), Database_MySQL::QUERY_TYPE_UPDATE);
+			$this->objDatabase->query($strQuery, array(), Adapter_Database_Interface::QUERY_TYPE_UPDATE);
 		}
 
 		// Perform insert
@@ -76,7 +77,7 @@ abstract class Model {
 				if(is_null($this->$strVariableName))
 					$strValues .= ($strValues) ? ", NULL" : "";
 				else
-					$strValues .= ($strValues) ? ", '".$objDatabase->prepareValue($this->$strVariableName)."'" : "'".$objDatabase->prepareValue($this->$strVariableName)."'";
+					$strValues .= ($strValues) ? ", '".$this->objDatabase->prepareValue($this->$strVariableName)."'" : "'".$this->objDatabase->prepareValue($this->$strVariableName)."'";
 			}
 
 			$strQuery = "
@@ -84,7 +85,7 @@ abstract class Model {
 				VALUES ({$strValues})
 			";
 
-			$this->mxdId = $objDatabase->query($strQuery, array(), Database_MySQL::QUERY_TYPE_INSERT);
+			$this->mxdId = $this->objDatabase->query($strQuery, array(), Adapter_Database_Interface::QUERY_TYPE_INSERT);
 		}
 	}
 

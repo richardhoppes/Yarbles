@@ -1,6 +1,6 @@
 <?php
 
-class Exception_Database_StatementFailed extends Exception_Database {
+class Exception_Database_UnsupportedQueryType extends Exception_Database {
 	protected $strQueryType;
 
 	public function __construct($strQueryType) {

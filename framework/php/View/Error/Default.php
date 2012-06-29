@@ -5,6 +5,6 @@
 	<title>Uh oh...</title>
 </head>
 <body>
-<h1><?=$arrParams['title']?></h1>
+<h2><?=$arrParams['title']?></h2>
 </body>
 </html>

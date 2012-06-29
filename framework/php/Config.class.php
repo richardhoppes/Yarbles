@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Application config
+ * Reads values from /application/config/config.ini
+ * @author Richard Hoppes
+ */
 class Config {
 	
 	private static $objConfig;
@@ -23,9 +27,9 @@ class Config {
 		return self::$objConfig;
 	}
 	
-	private function getProperty($strName) {
+	public function getProperty($strName) {
 		$strName = strtolower($strName);
-		
+
 		$mxdReturn = null;
 		if(isset($this->arrConfig[$this->strEnvironment][$strName])) {
 			$mxdReturn = $this->arrConfig[$this->strEnvironment][$strName];

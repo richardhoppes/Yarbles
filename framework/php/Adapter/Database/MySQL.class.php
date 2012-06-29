@@ -1,28 +1,24 @@
 <?php
 /**
- * MySQL database class
- * TODO: Adapters for different database types (mysql, sql server, etc...)
- * @throws Exception
- * @author Richard Hoppes <rhoppes@gmail.com>
+ * MySQL adapter
+ * @author Richard Hoppes
  */
-class Database_MySQL extends Database {
+class Adapter_Database_MySQL implements Adapter_Database_Interface {
+
+	protected $strDomain;
+	protected $strUsername;
+	protected $strPassword;
+	protected $strDatabaseName;
+	protected $dbLink;
+	protected $arrResults;
 
 	private static $objDatabaseMySQL;
 
-	const QUERY_TYPE_SELECT = 'queryTypeSelect';
-	const QUERY_TYPE_DELETE = 'queryTypeDelete';
-	const QUERY_TYPE_UPDATE = 'queryTypeUpdate';
-	const QUERY_TYPE_INSERT = 'queryTypeInsert';
-	const QUERY_TYPE_CREATE = 'queryTypeCreate';
-	const QUERY_TYPE_DROP = 'queryTypeDrop';
-
-	private function __construct() {
-		$objConfig = Config::getHandle();
-
-		$this->strDomain = $objConfig->DATABASE_SERVER;
-		$this->strUsername = $objConfig->DATABASE_USERNAME;
-		$this->strPassword = $objConfig->DATABASE_PASSWORD;
-		$this->strDatabaseName = $objConfig->DATABASE_NAME;
+	private function __construct($strDomain, $strUsername, $strPassword, $strDatabaseName) {
+		$this->strDomain = $strDomain;
+		$this->strUsername = $strUsername;
+		$this->strPassword = $strPassword;
+		$this->strDatabaseName = $strDatabaseName;
 
 		$this->dbLink = @mysql_connect($this->strDomain, $this->strUsername, $this->strPassword);
 		if(!$this->dbLink)
@@ -32,19 +28,18 @@ class Database_MySQL extends Database {
 			throw new Exception_Database_DatabaseSelectFailed($this->strDatabaseName);
 	}
 
-	public static function getHandle() {
+	public static function getHandle($strDomain, $strUsername, $strPassword, $strDatabaseName) {
 		if(!self::$objDatabaseMySQL) {
-			self::$objDatabaseMySQL = new self();
+			self::$objDatabaseMySQL = new self($strDomain, $strUsername, $strPassword, $strDatabaseName);
 		}
 		return self::$objDatabaseMySQL;
 	}
 
 	public function query($strQuery, $arrVariables = array(), $strQueryType = self::QUERY_TYPE_SELECT) {
 		$strQuery = $this->prepareQuery($strQuery, $arrVariables);
-
 		$mxdResult = null;
+
 		switch($strQueryType) {
-			// Select statement
 			case self::QUERY_TYPE_SELECT:
 				$arrResults = array();
 				if($result = mysql_query($strQuery, $this->dbLink)) {
@@ -57,7 +52,6 @@ class Database_MySQL extends Database {
 				$mxdResult = $arrResults;
 				break;
 
-			// Insert statement
 			case self::QUERY_TYPE_INSERT:
 				$result = mysql_query($strQuery, $this->dbLink);
 				if(!$result)
@@ -65,8 +59,6 @@ class Database_MySQL extends Database {
 				$mxdResult = $this->getInsertId();
 				break;
 
-			// Update, delete, create and drop statements
-			// TODO: Implement code specific to type of statement
 			case self::QUERY_TYPE_UPDATE:
 			case self::QUERY_TYPE_DELETE:
 			case self::QUERY_TYPE_CREATE:
@@ -86,12 +78,11 @@ class Database_MySQL extends Database {
 		return $mxdResult;
 	}
 
-	private function getInsertId() {
+	protected function getInsertId() {
 		return mysql_insert_id($this->dbLink);
 	}
 
-	public function prepareQuery($strQuery, $arrVariables) {
-
+	protected function prepareQuery($strQuery, $arrVariables) {
 		// Find all tokens
 		preg_match_all('/val\([A-Za-z0-9\s-_]*\)/i', $strQuery, $arrTokens);
 		if(isset($arrTokens[0]) && sizeof($arrTokens[0]) > 0) {

@@ -1,4 +1,8 @@
 <?php
+/**
+ * Search query helper (MySQL specific)
+ * @author Richard Hoppes
+ */
 class Helper_Search {
 
 	public static function searchizeString($strString) 
