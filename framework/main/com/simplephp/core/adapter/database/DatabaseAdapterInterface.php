@@ -17,4 +17,11 @@ interface DatabaseAdapterInterface {
 	public function query($strQuery, $arrVariables = array(), $strQueryType = self::QUERY_TYPE_SELECT);
 
 	public function prepareValue($strValue);
+
+	public function selectForModel($strTable, $strIdField, $mxdIdValue);
+
+	public function updateForModel($strTable, $arrUpdates, $strIdField, $mxdIdValue);
+
+	public function insertForModel($strTable, $arrUpdates, $strIdField, $mxdIdValue);
+
 }

@@ -21,18 +21,15 @@ abstract class Model {
 	}
 
 	public function load($strQuery = null, $arrVariables = array()) {
-		// If no query was supplied, load record by id
-		if(!$strQuery) {
-			$arrVariables['id'] = $this->mxdId;
-			$strQuery = "
-				SELECT *
-				FROM {$this->strTable}
-				WHERE {$this->strIdField} = val(id)
-			";
-		}
+		$arrResult = array();
 
-		// Execute query
-		$arrResult = $this->objDatabase->query($strQuery, $arrVariables);
+		// If a query WAS supplied, run it
+		// Otherwise, load record by id
+		if($strQuery) {
+			$arrResult = $this->objDatabase->query($strQuery, $arrVariables);
+		} else {
+			$arrResult = $this->objDatabase->selectForModel($this->strTable, $this->strIdField, $this->mxdId);
+		}
 
 		// Set field values, or reset if no record was found
 		if(isset($arrResult[0]) && is_array($arrResult[0]) && sizeof($arrResult) > 0) {
@@ -48,48 +45,18 @@ abstract class Model {
 	}
 
 	public function save() {
+		$arrUpdates = array();
+		foreach($this->getChildClassVariables() as $intIndex => $strVariableName) {
+			$arrUpdates[$strVariableName] = $this->$strVariableName;
+		}		
+
 		// Perform update
 		if($this->mxdId) {
-			$strSet = "";
-			foreach($this->getChildClassVariables() as $intIndex => $strVariableName) {
-				$strSet .= ($strSet) ? ', ' : '';
-				if(is_null($this->$strVariableName))
-					$strSet .= " {$strVariableName} = NULL ";
-				else
-					$strSet .= " {$strVariableName} = '".$this->objDatabase->prepareValue($this->$strVariableName)."' ";
-			}
-
-			$strQuery = "
-				UPDATE $this->strTable
-				SET {$strSet}
-				WHERE {$this->strIdField} = '{$this->mxdId}'
-			";
-
-			$this->objDatabase->query($strQuery, array(), DatabaseAdapterInterface::QUERY_TYPE_UPDATE);
+			$this->objDatabase->updateForModel($this->strTable, $arrUpdates, $this->strIdField, $this->mxdId);
 		}
-
 		// Perform insert
 		else {
-			$strFields = "{$this->strIdField}";
-			$strValues = "'{$this->mxdId}'";
-
-			foreach($this->getChildClassVariables() as $intIndex => $strVariableName) {
-				// Fields
-				$strFields .= ($strFields) ? ", {$strVariableName}" : "{$strVariableName}";
-
-				// Values
-				if(is_null($this->$strVariableName))
-					$strValues .= ($strValues) ? ", NULL" : "";
-				else
-					$strValues .= ($strValues) ? ", '".$this->objDatabase->prepareValue($this->$strVariableName)."'" : "'".$this->objDatabase->prepareValue($this->$strVariableName)."'";
-			}
-
-			$strQuery = "
-				INSERT INTO $this->strTable ({$strFields})
-				VALUES ({$strValues})
-			";
-
-			$this->mxdId = $this->objDatabase->query($strQuery, array(), DatabaseAdapterInterface::QUERY_TYPE_INSERT);
+			$this->mxdId = $this->objDatabase->insertForModel($this->strTable, $arrUpdates, $this->strIdField, $this->mxdId);
 		}
 	}
 
@@ -102,10 +69,10 @@ abstract class Model {
 	}
 
 	protected function getChildClassVariables() {
-		$objReflection = new ReflectionClass($this);
+		$objReflection = new \ReflectionClass($this);
 		$arrVars = array_keys($objReflection->getdefaultProperties());
 
-		$objReflection = new ReflectionClass(__CLASS__);
+		$objReflection = new \ReflectionClass(__CLASS__);
 		$arrParentVars = array_keys($objReflection->getdefaultProperties());
 
 		$arrChildVars = array();

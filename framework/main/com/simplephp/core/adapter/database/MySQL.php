@@ -126,4 +126,55 @@ class MySQL implements DatabaseAdapterInterface {
 		return mysql_real_escape_string($strValue, $this->dbLink);
 	}
 
+	public function selectForModel($strTable, $strIdField, $mxdIdValue) {
+		$arrVariables['id'] = $mxdIdValue;
+		$strQuery = "
+			SELECT *
+			FROM {$strTable}
+			WHERE {$strIdField} = val(id)
+		";
+		return $this->query($strQuery, $arrVariables);
+	}
+
+	public function updateForModel($strTable, $arrUpdates, $strIdField, $mxdIdValue) {
+		$strSet = "";
+		foreach($arrUpdates as $strVariableName => $mxdValue) {
+			$strSet .= ($strSet) ? ', ' : '';
+			if(is_null($mxdValue))
+				$strSet .= " {$strVariableName} = NULL ";
+			else
+				$strSet .= " {$strVariableName} = '" . $this->prepareValue($mxdValue) . "' ";
+		}
+
+		$arrVariables['id'] = $mxdIdValue;
+		$strQuery = "
+			UPDATE $strTable
+			SET {$strSet}
+			WHERE {$strIdField} = val(id)
+		";
+
+		return $this->query($strQuery, $arrVariables, DatabaseAdapterInterface::QUERY_TYPE_UPDATE);
+	}
+
+	public function insertForModel($strTable, $arrUpdates, $strIdField, $mxdIdValue) {
+		$strFields = "{$strIdField}";
+		$strValues = "'{$mxdIdValue}'";
+
+		foreach($arrUpdates as $strVariableName => $mxdValue) {
+			$strFields .= ($strFields) ? ", {$strVariableName}" : "{$strVariableName}";
+			if(is_null($mxdValue))
+				$strValues .= ($strValues) ? ", NULL" : "";
+			else
+				$strValues .= ($strValues) ? ", '" . $this->prepareValue($mxdValue) . "'" : "'" . $this->prepareValue($mxdValue) . "'";
+		}
+
+		$strQuery = "
+			INSERT INTO {$strTable} ({$strFields})
+			VALUES ({$strValues})
+		";
+
+		return $this->query($strQuery, array(), DatabaseAdapterInterface::QUERY_TYPE_INSERT);
+	}
+
+
 }
