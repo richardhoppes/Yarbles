@@ -1,4 +1,6 @@
 <?php
+echo "Unit Tests Will Run Here...";
+/*
 ini_set('memory_limit','3000M');                    // 3GB
 ini_set('session.gc_maxlifetime',7200);             // 120 minutes
 date_default_timezone_set("America/Los_Angeles");   // PHP can be so dumb
@@ -22,4 +24,5 @@ function __autoload($strClass) {
 require_once($objConfig->EXT_PATH . '/simpletest/autorun.php');
 include_once($objConfig->FW_TEST_PATH . "/Service/Tmdb/SearchTest.class.php");
 include_once($objConfig->FW_TEST_PATH . "/Service/Tmdb/Utility/TransformSearchResponseTest.class.php");
+*/
 ?>
