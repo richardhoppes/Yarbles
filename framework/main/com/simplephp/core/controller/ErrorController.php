@@ -6,9 +6,6 @@ use com\simplephp\core\ConfigInterface;
 use com\simplephp\core\exception\view\ViewNotFoundException;
 
 class ErrorController extends Controller {
-	public function __construct(ConfigInterface $objConfig) {
-		parent::__construct($objConfig);
-	}
 
 	public function pageNotFound($e) {
 		header("HTTP/1.1 404 Not Found");

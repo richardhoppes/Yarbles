@@ -2,12 +2,13 @@
 namespace com\simplephp\core;
 
 use com\simplephp\core\adapter\database\DatabaseAdapterInterface;
+use com\simplephp\core\ModelInterface;
 
 /**
  * Abstract model class
  * @author Richard Hoppes
  */
-abstract class Model {
+abstract class Model implements ModelInterface {
 	protected $strTable;
 	protected $mxdId;
 	protected $strIdField;

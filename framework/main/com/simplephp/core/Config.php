@@ -20,7 +20,7 @@ class Config implements ConfigInterface {
 	public function __construct() {
 		$this->strConfigPath = CONFIG_PATH;
 		$this->strEnvironment = ENVIRONMENT;
-		$this->strDefaultEnvironment = DEFAULT_ENVIRONMENT;
+		$this->strDefaultEnvironment = DEFAULT_ENVIRONMENT; 
 		$this->arrConfig = parse_ini_file($this->strConfigPath, true);
 	}
 	

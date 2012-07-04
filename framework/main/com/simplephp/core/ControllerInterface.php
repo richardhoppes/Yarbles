@@ -7,4 +7,6 @@ interface ControllerInterface {
 
 	public function redirect($strUrl);
 
+	public function outputJson($mxdContent);
+
 }

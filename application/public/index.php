@@ -1,9 +1,13 @@
 <?php
+include_once('../../application/main/com/simplephp/web/common/ServiceLocatorInterface.php');
+include_once('../../application/main/com/simplephp/web/common/ServiceLocator.php');
 include_once('../../framework/main/com/simplephp/core/ConfigInterface.php');
 include_once('../../framework/main/com/simplephp/core/Config.php');
 include_once('../../framework/main/com/simplephp/core/AutoloadInterface.php');
 include_once('../../framework/main/com/simplephp/core/Autoload.php');
 
+
+use com\simplephp\web\common\ServiceLocator;
 use com\simplephp\core\Config;
 use com\simplephp\core\Autoload;
 use com\simplephp\core\FrontController;
@@ -29,29 +33,14 @@ if(ENVIRONMENT == 'development') {
 	error_reporting(E_ALL ^ E_NOTICE);
 }
 
-// Declare globals for injecting dependencies
-// TODO: Possibly replace this with something similar to spring mvc injection
-$GLOBALS['config'] = Config::getHandle();
-$GLOBALS['mysqlReadOnly'] = DatabaseAdapterLoader::getHandle(
-	$GLOBALS['config']->getProperty("mysql_readonly_database_adapter"),
-	$GLOBALS['config']->getProperty("mysql_readonly_database_server"),
-	$GLOBALS['config']->getProperty("mysql_readonly_database_username"),
-	$GLOBALS['config']->getProperty("mysql_readonly_database_password"),
-	$GLOBALS['config']->getProperty("mysql_readonly_database_name")
-);
-$GLOBALS['mysqlReadWrite'] = DatabaseAdapterLoader::getHandle(
-	$GLOBALS['config']->getProperty("mysql_readwrite_database_adapter"),
-	$GLOBALS['config']->getProperty("mysql_readwrite_database_server"),
-	$GLOBALS['config']->getProperty("mysql_readwrite_database_username"),
-	$GLOBALS['config']->getProperty("mysql_readwrite_database_password"),
-	$GLOBALS['config']->getProperty("mysql_readwrite_database_name")
-);
+// Get config once before using the autoloader
+ServiceLocator::getConfig();
 
 // Set things up for dependency injection
 // TODO: Find a better way to do this
 function __autoload($strClass) {
-	Autoload::load($strClass, $GLOBALS['config']);
+	Autoload::load($strClass);
 }
 
-$objFrontController = new FrontController($GLOBALS['config']);
-$objFrontController->run();
+$objFrontController = new FrontController();
+$objFrontController->dispatch();

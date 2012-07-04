@@ -1,9 +1,10 @@
 <?php
 namespace com\simplephp\core;
 
+use com\simplephp\web\common\ServiceLocator;
+
 use com\simplephp\core\FrontControllerInterface;
 use com\simplephp\core\ConfigInterface;
-
 use com\simplephp\core\exception\controller\ControllerMethodNotFoundException;
 use com\simplephp\core\exception\controller\ControllerNotFoundException;
 use com\simplephp\core\exception\controller\NotAuthorizedException;
@@ -18,24 +19,24 @@ use com\simplephp\core\controller\ErrorController;
  */
 class FrontController implements FrontControllerInterface {
 
-	private $objConfig;
+	protected $objConfig;
 
-	public function __construct(ConfigInterface $objConfig) {
-		$this->objConfig = $objConfig;
+	public function __construct() {
+		$this->objConfig = ServiceLocator::getConfig();
 	}
 
-	public function run() {
+	public function dispatch() {
 		try {
 			$arrControllerPath = $this->getControllerPathFromUrl($_SERVER['PHP_SELF']);
 
 			// Set default controller/method
-			$strDefaultControllerName 				= $this->objConfig->getProperty("default_controller");
-			$strDefaultControllerMethodName 		= $this->objConfig->getProperty("default_controller_method");
+			$strDefaultControllerName = $this->objConfig->getProperty("default_controller");
+			$strDefaultControllerMethodName = $this->objConfig->getProperty("default_controller_method");
 
 			// Start with default controller/method
-			$strControllerName 						= $strDefaultControllerName;
-			$strControllerPath 						= "";
-			$strControllerMethodName 				= $strDefaultControllerMethodName;
+			$strControllerName = $strDefaultControllerName;
+			$strControllerPath = "";
+			$strControllerMethodName = $strDefaultControllerMethodName;
 
 			// Look for controller/method in controller path
 			if (sizeof($arrControllerPath) > 0) {
@@ -89,36 +90,36 @@ class FrontController implements FrontControllerInterface {
 				throw new ControllerMethodNotFoundException($strControllerMethodName, $strControllerName);
 			} else {
 				$strNamespacedControllerName = $this->createNamespacedControllerName($strControllerName);
-				$objController = new $strNamespacedControllerName($this->objConfig);
+				$objController = new $strNamespacedControllerName();
 				$objController->$strControllerMethodName();
 			}
 
 		} catch (ControllerNotFoundException $e) {
-			$objController = new ErrorController($this->objConfig);
+			$objController = new ErrorController();
 			$objController->pageNotFound($e);
 
 		} catch (ControllerMethodNotFoundException $e) {
-			$objController = new ErrorController($this->objConfig);
+			$objController = new ErrorController();
 			$objController->pageNotFound($e);
 
 		} catch (ViewNotFoundException $e) {
-			$objController = new ErrorController($this->objConfig);
+			$objController = new ErrorController();
 			$objController->pageNotFound($e);
 
 		} catch (NotAuthorizedException $e){
-			$objController = new ErrorController($this->objConfig);
+			$objController = new ErrorController();
 			$objController->notAuthorized($e);
 
 		} catch (CacheNotConnectedException $e) {
-			$objController = new ErrorController($this->objConfig);
+			$objController = new ErrorController();
 			$objController->internalServerError($e);
 
 		} catch (RequestMethodNotAllowedException $e) {
-			$objController = new ErrorController($this->objConfig);
+			$objController = new ErrorController();
 			$objController->methodNotAllowed($e);
 
 		} catch (\Exception $e) {
-			$objController = new ErrorController($this->objConfig);
+			$objController = new ErrorController();
 			$objController->general($e);
 		}
 	}

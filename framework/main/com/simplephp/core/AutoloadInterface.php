@@ -1,10 +1,10 @@
 <?
 namespace com\simplephp\core;
 
-use com\simplephp\core\ConfigInterface;
+use com\simplephp\core\LookupFactoryInterface;
 
 interface AutoloadInterface {
 
-	public static function load($strClass, ConfigInterface $objConfig);
+	public static function load($strClass);
 
 }

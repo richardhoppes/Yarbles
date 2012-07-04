@@ -10,10 +10,22 @@ use com\simplephp\core\adapter\database\DatabaseAdapterInterface;
 class MySqlImproved implements DatabaseAdapterInterface {
 
 	public function query($strQuery, $arrVariables = array(), $strQueryType = self::QUERY_TYPE_SELECT) {
-		// TODO: Implement query() method.
+		return null; // TODO: Implement query() method.
 	}
 
 	public function prepareValue($strValue) {
-		// TODO: Implement prepareValue() method.
+		return null; // TODO: Implement prepareValue() method.
+	}
+
+	public function selectForModel($strTable, $strIdField, $mxdIdValue) {
+		return null; // TODO: Implement selectForModel() method.
+	}
+
+	public function updateForModel($strTable, $arrUpdates, $strIdField, $mxdIdValue) {
+		return null; // TODO: Implement updateForModel() method.
+	}
+
+	public function insertForModel($strTable, $arrUpdates, $strIdField, $mxdIdValue) {
+		return null; // TODO: Implement insertForModel() method.
 	}
 }

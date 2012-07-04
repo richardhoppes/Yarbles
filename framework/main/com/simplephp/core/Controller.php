@@ -1,9 +1,10 @@
 <?php
 namespace com\simplephp\core;
 
+use com\simplephp\web\common\ServiceLocator;
+
 use com\simplephp\core\ControllerInterface;
 use com\simplephp\core\exception\view\ViewNotFoundException;
-use com\simplephp\core\ConfigInterface;
 
 /**
  * Abstract controller class
@@ -13,8 +14,8 @@ abstract class Controller implements ControllerInterface {
 
 	protected $objConfig;
 
-	public function __construct(ConfigInterface $objConfig) {
-		$this->objConfig = $objConfig;
+	public function __construct() {
+		$this->objConfig = ServiceLocator::getConfig();
 	}
 
 	public function loadView($strView, $arrParams = array()) {
@@ -32,6 +33,12 @@ abstract class Controller implements ControllerInterface {
 
 	public function redirect($strUrl) {
 		header("Location {$strUrl}");
+	}
+
+	public function outputJson($mxdContent) {
+		header('Cache-Control: no-cache, must-revalidate');
+		header('Content-type: application/json');
+		echo json_encode($mxdContent);
 	}
 
 }

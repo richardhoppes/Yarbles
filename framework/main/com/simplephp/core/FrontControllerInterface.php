@@ -3,6 +3,6 @@ namespace com\simplephp\core;
 
 interface FrontControllerInterface {
 
-	public function run();
+	public function dispatch();
 
 }

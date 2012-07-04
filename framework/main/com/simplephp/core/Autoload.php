@@ -1,8 +1,11 @@
 <?php
 namespace com\simplephp\core;
 
+use com\simplephp\web\common\ServiceLocator;
+
 use com\simplephp\core\ConfigInterface;
 use com\simplephp\core\AutoloaderInterface;
+use com\simplephp\core\LookupFactoryInterface;
 
 /**
  * Automagically load classes and interfaces
@@ -10,7 +13,9 @@ use com\simplephp\core\AutoloaderInterface;
  */
 class Autoload implements AutoloadInterface {
 
-	public static function load($strClass, ConfigInterface $objConfig) {
+	public static function load($strClass) {
+		$objConfig = ServiceLocator::getConfig();
+
 		$strFile = str_replace("\\", "/", $strClass);
 		$strFile = str_replace("_", "/", $strFile);
 
