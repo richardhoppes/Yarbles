@@ -1,7 +1,7 @@
 <?php
 namespace com\simplephp\core\helper;
 
-use com\simplephp\core\ConfigInterface;
+use com\simplephp\web\common\ServiceLocator;
 use com\simplephp\core\helper\VersionHelper;
 
 /**
@@ -16,7 +16,8 @@ class PathHelper {
 	 * @param boolean $boolForceCacheRefresh
 	 * @return string
 	 */
-	public static function createJsPath(ConfigInterface $objConfig, $strFileLocation, $boolForceCacheRefresh) {
+	public static function createJsPath($strFileLocation, $boolForceCacheRefresh) {
+		$objConfig = ServiceLocator::getConfig();
 		return $objConfig->getProperty("js_path") . "/" . $strFileLocation . ($boolForceCacheRefresh ? "?".VersionHelper::getVersionHash() : "");
 	}
 
@@ -27,7 +28,8 @@ class PathHelper {
 	 * @param bool $boolForceCacheRefresh
 	 * @return string
 	 */
-	public static function createCssPath(ConfigInterface $objConfig, $strFileLocation, $boolForceCacheRefresh) {
+	public static function createCssPath($strFileLocation, $boolForceCacheRefresh) {
+		$objConfig = ServiceLocator::getConfig();
 		return $objConfig->getProperty("css_path") . "/" . $strFileLocation . ($boolForceCacheRefresh ? "?".VersionHelper::getVersionHash() : "");
 	}
 
@@ -37,7 +39,8 @@ class PathHelper {
 	 * @param string $strFileLocation
 	 * @return string
 	 */
-	public static function createImgPath(ConfigInterface $objConfig, $strFileLocation = "") {
+	public static function createImgPath($strFileLocation = "") {
+		$objConfig = ServiceLocator::getConfig();
 		return $objConfig->getProperty("img_path") . "/" . $strFileLocation;
 	}
 
