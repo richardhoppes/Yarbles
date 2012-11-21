@@ -9,6 +9,14 @@ use yarbles\framework\common\YarblesLocator;
  */
 class FrameworkVersionHelper {
 	/**
+	 * Get app name
+	 */
+	public static function getName() {
+		$objConfig = YarblesLocator::getConfig();
+		return $objConfig->fw_name;
+	}
+
+	/**
 	 * Get app version
 	 * @return string
 	 */

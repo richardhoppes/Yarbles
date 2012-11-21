@@ -8,7 +8,7 @@ namespace yarbles\framework\helper;
 class StringHelper {
 
 	public static function truncate($strValue, $intMaxLength, $strAppendChars = "...") {
-		return (strlen($strValue) > $intMaxLength) ? substr($strValue, 0, $intMaxLength) . $strAppendChars : $strValue;
+		return (strlen($strValue) > $intMaxLength) ? trim(substr($strValue, 0, $intMaxLength)) . $strAppendChars : $strValue;
 	}
 
 }

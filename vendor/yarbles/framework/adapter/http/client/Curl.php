@@ -69,7 +69,7 @@ class Curl implements HttpClientAdapterInterface {
 	}
 
 	public function request($strMethod, $strUrl, $strHttpVersion = self::HTTP_VERSION_1_1, $arrHeaders = array(), $mxdBody = '') {
-		
+
 		if(!$this->resCurl) {
 			throw new NoConnectionException();
 		}
@@ -124,23 +124,23 @@ class Curl implements HttpClientAdapterInterface {
 		curl_setopt($this->resCurl, CURLOPT_RETURNTRANSFER, true);
 
 		// Basic authorization
-	    if(array_key_exists('Authorization', $arrHeaders) && 'Basic' == substr($arrHeaders['Authorization'], 0, 5)) {
+		if(array_key_exists('Authorization', $arrHeaders) && 'Basic' == substr($arrHeaders['Authorization'], 0, 5)) {
 			curl_setopt($this->resCurl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
 			curl_setopt($this->resCurl, CURLOPT_USERPWD, base64_decode(substr($arrHeaders['Authorization'], 6)));
 			unset($arrHeaders['Authorization']);
-	    }
+		}
 
-	    // Format headers for request
-	    $arrFormattedHeaders = array();
-	    foreach ($arrHeaders as $key => $value) {
-	        $arrFormattedHeaders[] = $key . ': ' . $value;
-	    }
-	    curl_setopt($this->resCurl, CURLOPT_HTTPHEADER, $arrFormattedHeaders);
+		// Format headers for request
+		$arrFormattedHeaders = array();
+		foreach ($arrHeaders as $key => $value) {
+			$arrFormattedHeaders[] = $key . ': ' . $value;
+		}
+		curl_setopt($this->resCurl, CURLOPT_HTTPHEADER, $arrFormattedHeaders);
 
-	    // Post fields
+		// Post fields
 		if ($strMethod == self::METHOD_POST || $strMethod == self::METHOD_PUT) {
 			curl_setopt($this->resCurl, CURLOPT_POSTFIELDS, $mxdBody);
-		} 
+		}
 
 		// TODO: Option to set additional CURL options
 
@@ -154,9 +154,9 @@ class Curl implements HttpClientAdapterInterface {
 
 	    $this->strRequest = curl_getinfo($this->resCurl, CURLINFO_HEADER_OUT);
 
-	    if (empty($this->strResponseHeader) || empty($this->strResponseContent)) {
-	        throw new RequestException(curl_error($this->resCurl));
-	    }
+//		if (empty($this->strResponseHeader) || empty($this->strResponseContent)) {
+//			throw new RequestException(curl_error($this->resCurl));
+//		}
 
 	    return $this->strRequest;
 	}

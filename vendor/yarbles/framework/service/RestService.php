@@ -25,7 +25,7 @@ class RestService {
 
 	protected function httpPost($strMethod, $strUrl, $strData) {
 		$this->objHttpClientAdapter->connect($this->strHost, $this->intPort, 60, 3);
-		$this->objHttpClientAdapter->request($strMethod, $strUrl, HttpClientAdapterInterface::HTTP_VERSION_1_1, array(), $strData);		
+		$this->objHttpClientAdapter->request($strMethod, $strUrl, HttpClientAdapterInterface::HTTP_VERSION_1_1, array(), $strData);
 		$this->objHttpClientAdapter->close();
 		
 		$this->strResponseContent = $this->objHttpClientAdapter->getResponse();

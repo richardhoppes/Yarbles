@@ -34,7 +34,8 @@ abstract class Controller implements ControllerInterface {
 	}
 
 	public function redirect($strUrl) {
-		header("Location {$strUrl}");
+		header("Location: {$strUrl}");
+		exit(0);
 	}
 
 	public function outputJson($mxdContent) {

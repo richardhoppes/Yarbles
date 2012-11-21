@@ -8,6 +8,16 @@ use yarbles\framework\common\YarblesLocator;
  * @author Richard Hoppes
  */
 class AppVersionHelper {
+
+	/**
+	 * Get app name
+	 * @return string
+	 */
+	public static function getName() {
+		$objConfig = YarblesLocator::getConfig();
+		return $objConfig->app_name;
+	}
+
 	/**
 	 * Get app version
 	 * @return string

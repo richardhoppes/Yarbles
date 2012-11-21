@@ -66,7 +66,7 @@ class ErrorController extends Controller {
 		$arrParams['http_response_code'] = 500;
 		$arrParams['http_response'] = '500 Internal Server Error';
 		$arrParams['error_message'] = "Uh ohs, something broke.  The code monkeys have been notified."; // TODO: This message should be configurable
-		$arrParams['error_code'] = $e->getExceptionCode();
+		$arrParams['error_code'] = @$e->getExceptionCode();
 		$this->loadView('error_default', $arrParams);
 	}
 

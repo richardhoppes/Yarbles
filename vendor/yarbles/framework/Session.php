@@ -40,7 +40,7 @@ class Session
 		if(isset($_SESSION[$strKey])) {
 			return $_SESSION[$strKey];
 		} else {
-			throw new Exception_Session_UnknownKey($strKey);
+			throw new \Exception('unknown key'); //Exception_Session_UnknownKey($strKey);
 		}
 	}
 
