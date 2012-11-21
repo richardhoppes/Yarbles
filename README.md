@@ -37,3 +37,12 @@ PHP 5.3.0 (mainly for namespaces and type hinting)
 
 
 ###4. Start up Apache, and try it out!
+
+###5. Test it!
+*****
+
+Go to http://***your-base-url*** in your browser.
+
+By default, going to the root url shoudl run the main method in the hearbeat controller.  If it is working, you should see something like: 
+
+{"status":"OK","application":"Test App","application_version":"1.0.0.final","framework":"Yarbles","framework_version":"2.0.0.beta"}
