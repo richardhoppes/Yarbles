@@ -36,12 +36,10 @@ PHP 5.3.0 (mainly for namespaces and type hinting)
   &lt;/VirtualHost&gt;
 
 
-###4. Start up Apache, and try it out!
-
-###5. Test it!
+###4. Start Apache and test it!
 *****
 
-Go to http://***your-base-url*** in your browser.
+Once Apache is running, go to http://***your-base-url*** in your browser.
 
 By default, going to the root url shoudl run the main method in the hearbeat controller.  If it is working, you should see something like: 
 
