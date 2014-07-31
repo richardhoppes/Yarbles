@@ -1,12 +1,9 @@
 <?php
-require_once('../../../vendor/yarbles/framework/ConfigInterface.php');
-require_once('../../../vendor/yarbles/framework/Config.php');
-require_once('../../../vendor/yarbles/framework/common/YarblesLocator.php');
-require_once('../../../vendor/yarbles/framework/AutoloadInterface.php');
-require_once('../../../vendor/yarbles/framework/Autoload.php');
-
-use yarbles\framework\Config;
-use yarbles\framework\adapter\database\DatabaseAdapterLoader;
+require_once(__DIR__ . '/../vendor/yarbles/framework/ConfigInterface.php');
+require_once(__DIR__ . '/../vendor/yarbles/framework/Config.php');
+require_once(__DIR__ . '/../vendor/yarbles/framework/common/YarblesLocator.php');
+require_once(__DIR__ . '/../vendor/yarbles/framework/AutoloadInterface.php');
+require_once(__DIR__ . '/../vendor/yarbles/framework/Autoload.php');
 
 ini_set('memory_limit','3000M'); // 3GB
 ini_set('session.gc_maxlifetime',7200); // 120 minutes

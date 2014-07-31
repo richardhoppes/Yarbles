@@ -45,7 +45,7 @@ class YarblesLocator {
 		$strKey = md5($strAdapter.$strServer.$strDatabaseName);
 		if(!self::$arrDatabaseAdapters[$strKey]) {
 			$strAdapterClass = self::getConfig()->getProperty("database_adapter_namespace") . "\\" . $strAdapter;
-			self::$arrDatabaseAdapters[$strKey] = new $strAdapterClass($strDomain, $strUsername, $strPassword, $strDatabaseName);
+			self::$arrDatabaseAdapters[$strKey] = new $strAdapterClass($strServer, $strUsername, $strPassword, $strDatabaseName);
 		}
 		return self::$arrDatabaseAdapters[$strKey];
 	}
