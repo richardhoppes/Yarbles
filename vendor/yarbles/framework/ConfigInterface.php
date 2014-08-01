@@ -13,8 +13,4 @@ interface ConfigInterface {
 
 	public function getDefaultEnvironment();
 
-	public function getAppConfig();
-
-	public function getFrameworkConfig();
-	
 }

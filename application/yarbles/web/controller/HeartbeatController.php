@@ -29,7 +29,7 @@ class HeartbeatController extends Controller {
 		echo "</pre>";
 	}
 
-	public function cachetest(){
+	public function cachetest() {
 		$objCache = CacheLocator::getCache();
 
 		$arrOutput = array();
@@ -40,6 +40,15 @@ class HeartbeatController extends Controller {
 		print_r($arrOutput);
 		print_r($objCache->dumpStats());
 		echo "<pre>";
+	}
+
+	public function testdangerousstacktrace() {
+		try {
+			$objDatabase = DatabaseLocator::getReadWriteDatabase();
+		} catch (\Exception $e) {
+			echo "<pre>";
+			print_r($e);
+		}
 	}
 
 }
