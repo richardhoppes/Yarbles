@@ -42,13 +42,4 @@ class HeartbeatController extends Controller {
 		echo "<pre>";
 	}
 
-	public function testdangerousstacktrace() {
-		try {
-			$objDatabase = DatabaseLocator::getReadWriteDatabase();
-		} catch (\Exception $e) {
-			echo "<pre>";
-			print_r($e);
-		}
-	}
-
 }
