@@ -15,10 +15,10 @@ interface CacheAdapterInterface {
 
 	public function flush();
 
-	public function getTotalSpace();
+	public function getTotalBytes();
 
-	public function getAvailableSpace();
+	public function getAvailableBytes();
 
-	public function clearExpired();
+	public function dumpStats();
 
 }

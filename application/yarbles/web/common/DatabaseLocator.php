@@ -1,8 +1,6 @@
 <?
 namespace yarbles\web\common;
 
-use yarbles\framework\Config;
-use yarbles\framework\adapter\database\DatabaseAdapterLoader;
 use yarbles\framework\common\YarblesLocator;
 
 class DatabaseLocator {

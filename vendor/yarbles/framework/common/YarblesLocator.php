@@ -8,7 +8,7 @@ use yarbles\framework\RequestHandler;
 use yarbles\framework\service\RestService;
 use yarbles\framework\adapter\http\client\Curl;
 use yarbles\framework\api\tmdb\TmdbSearch;
-use yarbles\framework\adapter\cache\Memcached;
+use yarbles\framework\adapter\cache\CacheAdapterInterface;
 use yarbles\framework\adapter\database\DatabaseAdapterInterface;
 use yarbles\framework\Session;
 
@@ -20,6 +20,7 @@ use yarbles\framework\Session;
 class YarblesLocator {
 
 	protected static $arrDatabaseAdapters = array();
+	protected static $arrCacheAdapters = array();
 
 	public static function getConfig() {
 		return Config::getHandle();
@@ -43,11 +44,20 @@ class YarblesLocator {
 
 	public static function getDatabaseAdapter($strAdapter, $strServer, $strUsername, $strPassword, $strDatabaseName) {
 		$strKey = md5($strAdapter.$strServer.$strDatabaseName);
-		if(!self::$arrDatabaseAdapters[$strKey]) {
+		if (!self::$arrDatabaseAdapters[$strKey]) {
 			$strAdapterClass = self::getConfig()->getProperty("database_adapter_namespace") . "\\" . $strAdapter;
 			self::$arrDatabaseAdapters[$strKey] = new $strAdapterClass($strServer, $strUsername, $strPassword, $strDatabaseName);
 		}
 		return self::$arrDatabaseAdapters[$strKey];
+	}
+
+	public static function getCacheAdapter($strAdapter, $strServer, $intPort) {
+		$strKey = md5($strAdapter.$strServer.$intPort);
+		if (!self::$arrCacheAdapters[$strKey]) {
+			$strAdapterClass = self::getConfig()->getProperty("cache_adapter_namespace") . "\\" . $strAdapter;
+			self::$arrCacheAdapters[$strKey] = new $strAdapterClass($strServer, $intPort);
+		}
+		return self::$arrCacheAdapters[$strKey];
 	}
 
 	public static function getTmdbApiSearch() {
