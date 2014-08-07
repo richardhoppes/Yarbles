@@ -3,8 +3,8 @@ namespace yarbles\web\common;
 
 use yarbles\framework\common\YarblesLocator;
 
-class DatabaseLocator {
-	
+class DatabaseLocator
+{
 	public static function getReadWriteDatabase() {
 		return YarblesLocator::getDatabaseAdapter(
 			YarblesLocator::getConfig()->getProperty("readwrite_database_adapter"),
@@ -14,5 +14,4 @@ class DatabaseLocator {
 			YarblesLocator::getConfig()->getProperty("readwrite_database_name")
 		);
 	}
-
 }

@@ -7,7 +7,7 @@ use yarbles\framework\adapter\http\client\HttpClientAdapterInterface;
  * Rest service for RESTful API requests
  * @author Richard Hoppes
  */
-class RestService {
+class RestService implements RestServiceInterface {
 
 	protected $objHttpClientAdapter;
 	protected $objConfig;

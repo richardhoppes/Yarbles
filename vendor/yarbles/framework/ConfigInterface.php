@@ -3,7 +3,7 @@ namespace yarbles\framework;
 
 interface ConfigInterface {
 
-	public static function getHandle();
+	public static function getHandle($strEnvironment, $strDefaultEnvironment, $strAppConfigPath, $strFrameworkConfigPath);
 
 	public function getProperty($strName);
 

@@ -1,0 +1,147 @@
+/* Base elements */
+body, th, td {
+    color: #555555;
+    font-family: 'Lucida Sans Unicode', 'Lucida Grande', Tahoma, sans-serif;
+    font-size: 10pt;
+}
+a {
+    color: #0000FF;
+}
+h1 {
+    font-size: 2.25em;
+    font-weight: normal;
+}
+h2 {
+    font-size: 1.75em;
+    font-weight: normal;
+}
+h3 {
+    font-size: 1.35em;
+    font-weight: normal;
+}
+h4 {
+    font-size: 1em;
+    font-weight: normal;
+}
+
+p {
+    margin-bottom: 1em;
+}
+
+/* Layout */
+div#main {
+    margin-left: auto;
+    margin-right: auto;
+    width: 900px;
+}
+div.box + * {
+    clear: both;
+}
+div.box {
+    clear: none;
+    float: left;
+}
+div.half {
+    width: 50%;
+}
+div.third {
+    width: 33%;
+}
+div.two-third {
+    width: 66%;
+}
+div.quarter {
+    width: 25%;
+}
+div.three-quarter {
+    width: 75%;
+}
+div.full {
+    width: 100%;
+}
+div.right {
+    text-align: right;
+}
+div.left {
+    text-align: left;
+}
+div.vspace-3 {
+    height: 3px;
+}
+div.vspace-5 {
+    height: 3px;
+}
+div.clear {
+    clear: both;
+}
+div.top-divider {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: #C9C9C9 solid 1px;
+}
+div.content-left-padded {
+    padding-left: 30px;
+}
+span.inactive {
+    color: #c0c0c0;
+    font-style: italic;
+}
+
+
+div.content {
+    line-height: 2;
+    padding: 15px;
+}
+div.content .indent {
+    padding-left: 15px;
+}
+div.content span.deemp {
+    font-size: .9em;
+    font-style: italic;
+    color: #737373;
+}
+
+/* Titles */
+h1.title, h2.title, h3.title {
+    font-family: Georgia;
+}
+h4.title, h5.title, h6.title {
+
+}
+/* Header & Footer */
+div#header {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+div#footer {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+div#footer > div.copyright {
+}
+
+/* Icons */
+div.icon {
+    width: 16px;
+    height: 16px;
+    display:block;
+    margin-right: 5px;
+    float: left;
+}
+div.icon-text {
+    float: left;
+    line-height: 1.5;
+    margin-right: 10px;
+}
+div.icon-twitter {
+    background:url('/img/icons-social/twitter-16x16.png') no-repeat;
+}
+div.icon-facebook {
+    background:url('/img/icons-social/facebook-16x16.png') no-repeat;
+}
+div.icon-rss {
+    background:url('/img/icons-social/feed-16x16.png') no-repeat;
+}
+div.icon-tag {
+    background:url('/img/icons-app/tag_green.png') no-repeat;
+}

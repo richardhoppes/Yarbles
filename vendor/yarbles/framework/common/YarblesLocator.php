@@ -23,7 +23,7 @@ class YarblesLocator {
 	protected static $arrCacheAdapters = array();
 
 	public static function getConfig() {
-		return Config::getHandle();
+		return Config::getHandle(ENVIRONMENT, DEFAULT_ENVIRONMENT, APP_CONFIG_PATH, FRAMEWORK_CONFIG_PATH);
 	}
 
 	public static function getFrontController() {

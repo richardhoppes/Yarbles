@@ -2,7 +2,7 @@
 
 /*
 |--------------------------------------------------------------------------
-| Pre boot
+| Setup
 |--------------------------------------------------------------------------
 |
 | Initial setup.
@@ -13,45 +13,23 @@
 |--------------------------------------------------------------------------
 */
 
-require_once(__DIR__ . '/../../../config/pre-boot.php');
+require_once(__DIR__ . '/../../../config/setup.php');
 
 /*
 |--------------------------------------------------------------------------
-| Environment
+| External libraries
 |--------------------------------------------------------------------------
 |
-| Write custom code here for determining environment here.
-|
-| Framework will look at the application config file path in pre-boot.php,
-| and look there for a .ini file with the environment name
-| (e.g. development will load <APP_CONFIG_PATH>/development.ini
+| Load external libraries.
 |
 |--------------------------------------------------------------------------
 */
 
-if(preg_match('/webdev\./i', $_SERVER['SERVER_NAME'])) {
-	define('ENVIRONMENT', 'development');
-} else {
-	define('ENVIRONMENT', 'production');
-}
+require_once(__DIR__ . '/../../../config/libs.php');
 
 /*
 |--------------------------------------------------------------------------
-| Error reporting
-|--------------------------------------------------------------------------
-|
-| Optional way to override error reporting for specific environment(s).
-|
-|--------------------------------------------------------------------------
-*/
-
-if(ENVIRONMENT == 'development') {
-	error_reporting(E_ALL ^ E_NOTICE);
-}
-
-/*
-|--------------------------------------------------------------------------
-| Post boot
+| Boot
 |--------------------------------------------------------------------------
 |
 | Set up autoloader, dispatch front controller.
@@ -59,4 +37,4 @@ if(ENVIRONMENT == 'development') {
 |--------------------------------------------------------------------------
 */
 
-require_once(__DIR__ . '/../../../config/post-boot.php');
+require_once(__DIR__ . '/../../../config/boot.php');
