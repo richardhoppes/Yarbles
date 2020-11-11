@@ -1,3 +1,5 @@
+**DEPRECATED - No Longer Updated**
+
 ##Requirements
 
 PHP 5.3.0 (mainly for namespaces and type hinting)
